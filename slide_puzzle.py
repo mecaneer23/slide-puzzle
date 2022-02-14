@@ -24,7 +24,6 @@ def main(stdscr):
                 stdscr.addstr("\n    ")
             counter += 1
         stdscr.addstr("\n")
-        # move = input("Move: ").rjust(2, ' ')
         stdscr.addstr("Move: ")
         key = stdscr.getkey()
         if key == 'q':
@@ -44,7 +43,6 @@ def main(stdscr):
             board[open_space_loc], board[move_loc] = board[move_loc], board[open_space_loc]
         if board == sorted(board):
             return 'w'
-        stdscr.addstr("-" * 20)
         stdscr.refresh()
 
 if __name__ == "__main__":
