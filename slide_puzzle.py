@@ -6,6 +6,7 @@ import random
 BOARD_SIZE = 3
 
 def main(stdscr):
+    curses.use_default_colors()
     board = ['  ']
     board.extend(range(1, BOARD_SIZE * BOARD_SIZE))
     board = [str(i).rjust(2, ' ') for i in board]
