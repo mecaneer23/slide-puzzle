@@ -14,13 +14,16 @@ def main():
                 vars[i][j].set(board[c])
                 c += 1
         moves.set(f"Moves: {int(moves.get().split()[-1]) + 1}")
-        print(
-            [[vars[j][i].get() for i in range(BOARD_SIZE)] for j in range(BOARD_SIZE)]
-        )
+        # print(
+        #     [[vars[j][i].get() for i in range(BOARD_SIZE)] for j in range(BOARD_SIZE)]
+        # )
 
-    def move(event=None):
+    def move(event=None, keycode=None):
         nonlocal vars
-        key = event.keycode
+        if event is not None:
+            key = event.keycode
+        else:
+            key = keycode
         open_space_loc = board.index(" ")
         if key == 81:
             root.destroy()
@@ -85,10 +88,9 @@ def main():
         ]
         for i in range(BOARD_SIZE)
     ]
-    moves = StringVar(root, "Moves: -1")
-    random.shuffle(
-        board
-    )  # this leads to an occasional issue where the board is not solvable
+    for _ in range(1000):
+        move(None, random.choice((37, 38, 39, 40)))
+        moves = StringVar(root, "Moves: -1")
     ttk.Label(root, textvariable=moves).grid(columnspan=BOARD_SIZE, row=BOARD_SIZE + 1, column=0)
     update_vars(board)
     root.mainloop()
