@@ -1,0 +1,35 @@
+body {
+    background-color: rgb(2, 0, 36);
+    background-image: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+    color: white;
+    overflow: hidden;
+}
+
+#move-counter {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 20vmin;
+    white-space: nowrap;
+}
+
+#grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    margin: 0;
+    position: absolute;
+    top: 62%;
+    left: 50%;
+    transform: translate(-50%, -53%);
+}
+
+.grid-item {
+    margin: 1vmin;
+    font-size: 20vmin;
+    text-align: center;
+    height: 25vmin;
+    width: 25vmin;
+    background-color: darkgray;
+    color: white;
+    border-color: transparent;
+}
