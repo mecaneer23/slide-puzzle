@@ -2,35 +2,27 @@
 
 from tkinter import Tk, ttk, StringVar, messagebox
 import random
-BOARD_SIZE = 3
 
+BOARD_SIZE = 3 # any int, > 2
+root = None
+board = None
+moves = None
 
-def update(
-    board: list[str],
-    update_moves: bool,
-    variables: list[list[StringVar]],
-    moves: StringVar = StringVar(Tk(), "Moves: -1"),
-) -> None:
+def update(board, variables, moves = None):
     c = 0
     for i in range(BOARD_SIZE):
         for j in range(BOARD_SIZE):
             variables[i][j].set(board[c])
             c += 1
-    if update_moves:
+    if moves is not None:
         moves.set(f"Moves: {int(moves.get().split()[-1]) + 1}")
 
 
-def move(
-    event=None,
-    board: list = list(),
-    variables: list[list[StringVar]] = [[StringVar(Tk())]],
-    keycode: int | None = None,
-    update_counter: bool = True,
-) -> None:
-    if event is not None:
-        key = event.keycode
+def move(event, board, moves, variables):
+    if isinstance(event, int):
+        key = event
     else:
-        key = keycode
+        key = event.keycode
     open_space_loc = board.index(" ")
     if key == 81:
         root.destroy()
@@ -57,21 +49,19 @@ def move(
     else:
         return
     board[open_space_loc], board[move_loc] = board[move_loc], board[open_space_loc]
-    update(board, update_counter, variables)
-    if board == sorted(board):
+    update(board, variables, moves)
+    if board == sorted(board) and moves:
         if messagebox.askyesno("You win!", "Do you want to play again?"):
             root.destroy()
-
-            init()
+            start()
         else:
-            root.destroy()
             exit()
+
 
 def init():
     root = Tk()
     root.title("Slide Puzzle")
     board = [str(i) for i in [" ", *range(1, BOARD_SIZE * BOARD_SIZE)]]
-    root.bind_all("<Key>", lambda e: move(e, board))
     style = ttk.Style()
     style.configure(
         "Box.TLabel",
@@ -99,15 +89,20 @@ def init():
         for i in range(BOARD_SIZE)
     ]
     moves = StringVar(root)
-    for _ in range(10):
-        move(None, board, variables, random.choice((37, 38, 39, 40)), False)
+    moves.set("Moves: -1")
+    root.bind_all("<Key>", lambda e: move(e, board, moves, variables))
+    for _ in range(1000):
+        move(random.choice((37, 38, 39, 40)), board, None, variables)
     moves.set("Moves: -1")
     ttk.Label(root, textvariable=moves).grid(
         columnspan=BOARD_SIZE, row=BOARD_SIZE + 1, column=0
     )
-    update(board, True, variables)
+    update(board, variables, moves)
     return root, board, moves
 
+def start():
+    global root, board, moves
+    root, board, moves = init()
+    root.mainloop()
 
-root, board, moves = init()
-root.mainloop()
+start()
