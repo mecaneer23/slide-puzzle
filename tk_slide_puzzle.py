@@ -20,30 +20,30 @@ def update(board, variables, moves=None):
 
 
 def move(event, board, moves, variables):
-    if isinstance(event, int):
+    if isinstance(event, str):
         key = event
     else:
-        key = event.keycode
+        key = event.keysym
     open_space_loc = board.index(" ")
-    if key == 81:  # q
+    if key == "q":
         root.destroy()
         exit()
-    elif key in (87, 38):  # w, up
+    elif key in ('w', "Up"):
         if not (open_space_loc + BOARD_SIZE < BOARD_SIZE * BOARD_SIZE):
             return
         move_loc = open_space_loc + BOARD_SIZE
-    elif key in (83, 40):  # s, down
+    elif key in ("s", "Down"):
         if not (open_space_loc - BOARD_SIZE >= 0):
             return
         move_loc = open_space_loc - BOARD_SIZE
-    elif key in (65, 37):  # a, left
+    elif key in ("a", "Left"):
         if not (
             (open_space_loc + 1) % BOARD_SIZE != 0
             and open_space_loc + 1 < BOARD_SIZE * BOARD_SIZE
         ):
             return
         move_loc = open_space_loc + 1
-    elif key in (68, 39):  # d, right
+    elif key in ("d", "Right"):
         if not (open_space_loc % BOARD_SIZE != 0 and open_space_loc - 1 >= 0):
             return
         move_loc = open_space_loc - 1
@@ -93,7 +93,7 @@ def init():
     moves.set("Moves: -1")
     root.bind_all("<Key>", lambda e: move(e, board, moves, variables))
     for _ in range(1000):
-        move(random.choice((37, 38, 39, 40)), board, None, variables)
+        move(random.choice("wasd"), board, None, variables)
     moves.set("Moves: -1")
     ttk.Label(root, textvariable=moves).grid(
         columnspan=BOARD_SIZE, row=BOARD_SIZE + 1, column=0
