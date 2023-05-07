@@ -25,25 +25,25 @@ def move(event, board, moves, variables):
     else:
         key = event.keycode
     open_space_loc = board.index(" ")
-    if key == 81:
+    if key == 81:  # q
         root.destroy()
         exit()
-    elif key in (87, 38):
+    elif key in (87, 38):  # w, up
         if not (open_space_loc + BOARD_SIZE < BOARD_SIZE * BOARD_SIZE):
             return
         move_loc = open_space_loc + BOARD_SIZE
-    elif key in (83, 40):
+    elif key in (83, 40):  # s, down
         if not (open_space_loc - BOARD_SIZE >= 0):
             return
         move_loc = open_space_loc - BOARD_SIZE
-    elif key in (65, 37):
+    elif key in (65, 37):  # a, left
         if not (
             (open_space_loc + 1) % BOARD_SIZE != 0
             and open_space_loc + 1 < BOARD_SIZE * BOARD_SIZE
         ):
             return
         move_loc = open_space_loc + 1
-    elif key in (68, 39):
+    elif key in (68, 39):  # d, right
         if not (open_space_loc % BOARD_SIZE != 0 and open_space_loc - 1 >= 0):
             return
         move_loc = open_space_loc - 1
