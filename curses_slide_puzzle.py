@@ -8,6 +8,7 @@ BOARD_SIZE = 3
 
 def main(stdscr):
     curses.use_default_colors()
+    curses.curs_set(0)
     board = [str(i).rjust(2, " ") for i in ["  ", *range(1, BOARD_SIZE * BOARD_SIZE)]]
     random.shuffle(
         board
@@ -22,7 +23,6 @@ def main(stdscr):
             stdscr.addstr(f"{piece} ")
             if i % BOARD_SIZE == 0:
                 stdscr.addstr("\n    ")
-        stdscr.addstr("\nMove: ")
         key = stdscr.getkey()
         open_space_loc = board.index("  ")
         if key == "q":
