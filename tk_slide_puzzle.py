@@ -3,12 +3,13 @@
 from tkinter import Tk, ttk, StringVar, messagebox
 import random
 
-BOARD_SIZE = 3 # any int, > 2
+BOARD_SIZE = 3  # any int, > 2
 root = None
 board = None
 moves = None
 
-def update(board, variables, moves = None):
+
+def update(board, variables, moves=None):
     c = 0
     for i in range(BOARD_SIZE):
         for j in range(BOARD_SIZE):
@@ -53,7 +54,7 @@ def move(event, board, moves, variables):
     if board == sorted(board) and moves:
         if messagebox.askyesno("You win!", "Do you want to play again?"):
             root.destroy()
-            start()
+            main()
         else:
             exit()
 
@@ -100,9 +101,12 @@ def init():
     update(board, variables, moves)
     return root, board, moves
 
-def start():
+
+def main():
     global root, board, moves
     root, board, moves = init()
     root.mainloop()
 
-start()
+
+if __name__ == "__main__":
+    main()

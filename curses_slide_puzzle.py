@@ -5,10 +5,13 @@ import random
 
 BOARD_SIZE = 3
 
+
 def main(stdscr):
     curses.use_default_colors()
-    board = [str(i).rjust(2, ' ') for i in ["  ", *range(1, BOARD_SIZE * BOARD_SIZE)]]
-    random.shuffle(board) # this leads to an occasional issue where the board is not solvable
+    board = [str(i).rjust(2, " ") for i in ["  ", *range(1, BOARD_SIZE * BOARD_SIZE)]]
+    random.shuffle(
+        board
+    )  # this leads to an occasional issue where the board is not solvable
     moves = 0
     stdscr.nodelay(0)
     while True:
@@ -21,11 +24,11 @@ def main(stdscr):
                 stdscr.addstr("\n    ")
         stdscr.addstr("\nMove: ")
         key = stdscr.getkey()
-        open_space_loc = board.index('  ')
-        if key == 'q':
+        open_space_loc = board.index("  ")
+        if key == "q":
             return ""
         elif key in ("KEY_UP", "w"):
-            if open_space_loc + BOARD_SIZE < BOARD_SIZE*BOARD_SIZE:
+            if open_space_loc + BOARD_SIZE < BOARD_SIZE * BOARD_SIZE:
                 move_loc = open_space_loc + BOARD_SIZE
             else:
                 continue
@@ -35,7 +38,9 @@ def main(stdscr):
             else:
                 continue
         elif key in ("KEY_LEFT", "a"):
-            if (open_space_loc + 1) % BOARD_SIZE != 0 and open_space_loc + 1 < BOARD_SIZE*BOARD_SIZE:
+            if (
+                open_space_loc + 1
+            ) % BOARD_SIZE != 0 and open_space_loc + 1 < BOARD_SIZE * BOARD_SIZE:
                 move_loc = open_space_loc + 1
             else:
                 continue
@@ -47,10 +52,14 @@ def main(stdscr):
         else:
             continue
         if key:
-            board[open_space_loc], board[move_loc] = board[move_loc], board[open_space_loc]
+            board[open_space_loc], board[move_loc] = (
+                board[move_loc],
+                board[open_space_loc],
+            )
         if board == sorted(board):
-            return 'You win!\n'
+            return "You win!\n"
         stdscr.refresh()
+
 
 if __name__ == "__main__":
     print(curses.wrapper(main), end="")
