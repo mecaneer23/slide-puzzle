@@ -4,10 +4,6 @@ A simple puzzle game where the player moves tiles around until they form a list 
 
 Good luck and have fun!
 
-## Tk
+## Running
 
-tk_slide_puzzle.py uses the Tkinter graphics library
-
-## Curses
-
-curses_slide_puzzle.py uses the curses graphics library (in a terminal)
+There are a few different ways to run this game. It can be run in a [gui](tk_slide_puzzle.py), or in a [browser](index.html), or in the [terminal using curses](curses_slide_puzzle.py) or just [command line input](SlidePuzzle.java).
