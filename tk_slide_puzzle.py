@@ -28,7 +28,7 @@ def move(event, board, moves, variables):
     if key == "q":
         root.destroy()
         exit()
-    elif key in ('w', "Up"):
+    elif key in ("w", "Up"):
         if not (open_space_loc + BOARD_SIZE < BOARD_SIZE * BOARD_SIZE):
             return
         move_loc = open_space_loc + BOARD_SIZE
