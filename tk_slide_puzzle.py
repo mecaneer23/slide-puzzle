@@ -2,8 +2,9 @@
 
 from tkinter import Tk, ttk, StringVar, messagebox
 import random
+from sys import argv
 
-BOARD_SIZE = 3  # any int, > 2
+BOARD_SIZE = int(argv[1]) if len(argv) > 1 and int(argv[1]) > 2 else 3
 root = None
 board = None
 moves = None
@@ -28,22 +29,22 @@ def move(event, board, moves, variables):
     if key == "q":
         root.destroy()
         exit()
-    elif key in ("w", "Up"):
+    elif key in ("w", "Up", "k"):
         if not (open_space_loc + BOARD_SIZE < BOARD_SIZE * BOARD_SIZE):
             return
         move_loc = open_space_loc + BOARD_SIZE
-    elif key in ("s", "Down"):
+    elif key in ("s", "Down", "j"):
         if not (open_space_loc - BOARD_SIZE >= 0):
             return
         move_loc = open_space_loc - BOARD_SIZE
-    elif key in ("a", "Left"):
+    elif key in ("a", "Left", "h"):
         if not (
             (open_space_loc + 1) % BOARD_SIZE != 0
             and open_space_loc + 1 < BOARD_SIZE * BOARD_SIZE
         ):
             return
         move_loc = open_space_loc + 1
-    elif key in ("d", "Right"):
+    elif key in ("d", "Right", "l"):
         if not (open_space_loc % BOARD_SIZE != 0 and open_space_loc - 1 >= 0):
             return
         move_loc = open_space_loc - 1
@@ -51,7 +52,7 @@ def move(event, board, moves, variables):
         return
     board[open_space_loc], board[move_loc] = board[move_loc], board[open_space_loc]
     update(board, variables, moves)
-    if board == sorted(board) and moves:
+    if board == sorted(board, key=lambda x: 0 if x == " " else int(x)) and moves:
         if messagebox.askyesno("You win!", "Do you want to play again?"):
             root.destroy()
             main()
