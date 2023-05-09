@@ -18,7 +18,6 @@ def main(stdscr):
     while True:
         stdscr.clear()
         stdscr.addstr(f"Moves: {moves}\n\n    ")
-        moves += 1
         for i, piece in enumerate(board, 1):
             stdscr.addstr(f"{piece} ")
             if i % BOARD_SIZE == 0:
@@ -59,6 +58,7 @@ def main(stdscr):
         if board == sorted(board):
             return "You win!\n"
         stdscr.refresh()
+        moves += 1
 
 
 if __name__ == "__main__":
