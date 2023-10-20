@@ -43,7 +43,14 @@ async function move(event) {
         for (let i = 0; i < children.length; i++) {
             children[i].innerHTML = board[i];
         }
-        if (JSON.stringify(board) === JSON.stringify([...board].sort()) && moves > 0) {
+        let sorted = [...board].sort();
+        sorted.shift();
+        sorted.push(" ")
+        if (
+            (JSON.stringify(board) === JSON.stringify([...board].sort())
+            || JSON.stringify(board) === JSON.stringify(sorted))
+            && moves > 0
+        ) {
             setTimeout(() => {
                 alert("You got it in " + moves + " moves!");
             }, 0);
